@@ -99,8 +99,9 @@ var generatePassword = function()
         (passwordCriteria.lower = true && !text.includes("abcdefghijklmnopqrstuvwxyz")) ||
         (passwordCriteria.upper = true && !text.includes("ABCDEFGHIJKLMNOPQRSTUVWXYZ")) ||
         (passwordCriteria.numeric = true && !text.includes("0123456789")) ||
-        (passwordCriteria.special = true && !text.includes(" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")) ||
+        (passwordCriteria.special = true && !text.includes(" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")) 
     )
+
     {
         // reset password variable
         text = "";  
