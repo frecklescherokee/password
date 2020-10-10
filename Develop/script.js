@@ -93,7 +93,7 @@ var generatePassword = function()
     // or
     // if special is required and no special is present
     // then run the for loop again
-    if 
+    while 
     (
         text.length < passwordCriteria.length ||
         (passwordCriteria.lower = true && !text.includes("abcdefghijklmnopqrstuvwxyz")) ||
@@ -101,7 +101,6 @@ var generatePassword = function()
         (passwordCriteria.numeric = true && !text.includes("0123456789")) ||
         (passwordCriteria.special = true && !text.includes(" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")) 
     )
-
     {
         // reset password variable
         text = "";  
@@ -113,7 +112,9 @@ var generatePassword = function()
         text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
         console.log(text);
-    };
+    }
+
+    
 
     // once string is complete, return the string as the password
     return text;
