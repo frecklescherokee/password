@@ -12,7 +12,7 @@ var specExists = false;
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
-// global object to contain password criteria
+// Object to contain password criteria
 var passwordCriteria = 
 {
     length: 0,
@@ -32,7 +32,6 @@ var getPasswordCriteria = function()
       passwordCriteria.length = window.prompt("Enter how many characters for your password.  Must be between 8 and 128 characters.");
     }
     console.log(passwordCriteria.length);
-    
 
     // Include passwordCriteria.lower?
     passwordCriteria.lower = window.confirm("Should the password contain lower case letters?  Press OK for yes and press Cancel for no.");
@@ -76,7 +75,6 @@ var loadPasswordCriteria = function()
         list += specList;
     }
 
-
     console.log(list);
     return list;
 }
@@ -90,18 +88,6 @@ var generatePassword = function()
     // add the types of characters chosen by the user into the pool of chooseable characters
     var text = "";
     var possible = loadPasswordCriteria();
-    
-    // verify at least 1 of each required character is in the generated password
-    // if the password is not the required length
-    // or
-    // if lower is required and no lower is present 
-    // or
-    // if upper is required and no upper is present
-    // or
-    // if numeric is required and no numeric is present
-    // or
-    // if special is required and no special is present
-    // then run the for loop again
     
     do
     {
@@ -159,20 +145,21 @@ var generatePassword = function()
 
     while 
     (
+        // verify at least 1 of each required character is in the generated password
+        // if the password is not the required length 
         (text.length != passwordCriteria.length) ||
-
-        
-        
-        
+        // if lower is required and no lower is present 
         ((passwordCriteria.lower === true) && (lowExists === false)) ||
+        // if upper is required and no upper is present 
         ((passwordCriteria.upper === true) && (upExists === false)) ||
+        // if numeric is required and no numeric is present 
         ((passwordCriteria.numeric === true) && (numExists === false)) ||
+        // if special is required and no special is present
         ((passwordCriteria.special === true) && (specExists === false)) 
-        
-        
+        // then run the for loop again
     );
 
-    // once string is complete, return the string as the password
+    // once string is complete and passes all criteria, return the string as the password
     return text;
 }
 
@@ -181,9 +168,7 @@ function writePassword()
 {
     var password = generatePassword();
     var passwordText = document.querySelector("#password");
-
     passwordText.value = password;
-
 }
 
 // Add event listener to generate button
