@@ -1,4 +1,13 @@
 // Assignment code here
+// add global variables
+var lowList = "abcdefghijklmnopqrstuvwxyz";
+var lowExists = false;
+var upList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var upExists = false;
+var numList = "0123456789";
+var numExists = false;
+var specList = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+var specExists = false;
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -49,22 +58,22 @@ var loadPasswordCriteria = function()
     // add lowercase
     if (passwordCriteria.lower)
     {
-        list += "abcdefghijklmnopqrstuvwxyz";
+        list += lowList;
     }
     // add uowercase
     if (passwordCriteria.upper)
     {
-        list += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        list += upList;
     }
     // add numbers
     if (passwordCriteria.numeric)
     {
-        list += "0123456789";
+        list += numList;
     }
     // add special characers
     if (passwordCriteria.special)
     {
-        list += " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+        list += specList;
     }
 
 
@@ -93,17 +102,15 @@ var generatePassword = function()
     // or
     // if special is required and no special is present
     // then run the for loop again
-    while 
-    (
-        text.length < passwordCriteria.length ||
-        (passwordCriteria.lower = true && !text.includes("abcdefghijklmnopqrstuvwxyz")) ||
-        (passwordCriteria.upper = true && !text.includes("ABCDEFGHIJKLMNOPQRSTUVWXYZ")) ||
-        (passwordCriteria.numeric = true && !text.includes("0123456789")) ||
-        (passwordCriteria.special = true && !text.includes(" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")) 
-    )
+    
+    do
     {
         // reset password variable
         text = "";  
+        lowExists = false;
+        upExists = false;
+        numExists = false;
+        specExists = false;
 
         // loop through a character addition process the number of times the user chose for password length
         for (var i = 0; i < passwordCriteria.length; i++)
@@ -112,9 +119,58 @@ var generatePassword = function()
         text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
         console.log(text);
+
+
+        /////// Quality Check ///////////
+        // determine if a lower case character exists
+        for (i = 0; i < lowList.length; i++)
+        {
+            if (text.includes(lowList[i])) { lowExists = true;}
+        }
+
+        // determine if a upper case character exists
+        for (i = 0; i < upList.length; i++)
+        {
+            if (text.includes(upList[i])) { upExists = true;}
+        }
+
+        // determine if a numerical character exists
+        for (i = 0; i < numList.length; i++)
+        {
+            if (text.includes(numList[i])) { numExists = true;}
+        }
+
+        // determine if a special character exists
+        for (i = 0; i < specList.length; i++)
+        {
+            if (text.includes(specList[i])) { specExists = true;}
+        }
+
+        console.log("that text includes a lower case character is " + lowExists);
+        console.log("that text includes an upper case character is " + upExists);
+        console.log("that text includes a numerical character is " + numExists);
+        console.log("that text includes a special character is " + specExists);
+        
+        //text += "a";
+        //lowExists = false;
+        if (lowExists === false) {console.log("lowExists is false.")};
+        debugger;
     }
 
-    
+    while 
+    (
+        (text.length != passwordCriteria.length) ||
+
+        
+        
+        
+        ((passwordCriteria.lower === true) && (lowExists === false)) ||
+        ((passwordCriteria.upper === true) && (upExists === false)) ||
+        ((passwordCriteria.numeric === true) && (numExists === false)) ||
+        ((passwordCriteria.special === true) && (specExists === false)) 
+        
+        
+    );
 
     // once string is complete, return the string as the password
     return text;
@@ -132,3 +188,4 @@ function writePassword()
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
